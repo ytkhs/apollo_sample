@@ -1,0 +1,42 @@
+type Query {
+    product(id: String): Product
+    listProducts(filter: ProductFilterInput, limit: Int, nextToken: String): ProductConnection
+}
+
+type ProductConnection {
+     items: [Product]
+     nextToken: String
+ }
+
+input TableIDFilterInput {
+     ne: ID
+     eq: ID
+     le: ID
+     lt: ID
+     ge: ID
+     gt: ID
+     contains: ID
+     notContains: ID
+     between: [ID]
+     beginsWith: ID
+ }
+
+input ProductFilterInput {
+     id: TableIDFilterInput
+ }
+
+type Product {
+    id: ID!
+    name: String!
+    brand: Brand!
+    url: String
+    image_url: String
+    reviewer_average: Float!
+    review_count: Int!
+}
+
+type Brand {
+    id: ID!
+    url: String
+    name: String!
+}

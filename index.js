@@ -1,38 +1,19 @@
 const { ApolloServer, gql } = require("apollo-server");
+const { importSchema } = require('graphql-import');
 
 // schema
-const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
-  }
+const typeDefs = importSchema('schema.gql');
 
-  type Query {
-    books: [Book]
-  }
-`;
-
-// sample data
-const books = [
-  {
-    title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling"
-  },
-  {
-    title: "Jurassic Park",
-    author: "Michael Crishton"
-  }
-];
-
-// resolver
 const resolvers = {
   Query: {
-    books: () => books
-  }
+  },
 };
 
-// start server
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  mocks: true,
+});
 
 server.listen().then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
